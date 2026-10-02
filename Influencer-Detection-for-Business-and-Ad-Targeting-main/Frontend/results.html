@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Campaign Results - InfluencerIQ
+    </title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- ========================= -->
+        <!-- SIDEBAR -->
+        <!-- ========================= -->
+
+        <aside class="sidebar">
+
+            <h2 class="logo">
+                InfluencerIQ 🎯
+            </h2>
+
+            <nav class="sidebar-nav">
+
+                <a href="dashboard.html">
+                    📊 Dashboard
+                </a>
+
+                <a
+                    href="results.html"
+                    class="active"
+                >
+                    🌟 Results
+                </a>
+
+                <a href="analytics.html">
+                    📈 Analytics
+                </a>
+
+                <a
+                    href="#"
+                    onclick="logout()"
+                    style="
+                        margin-top:auto;
+                        color:var(--danger);
+                    "
+                >
+                    🚪 Logout
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- ========================= -->
+        <!-- MAIN CONTENT -->
+        <!-- ========================= -->
+
+        <main class="main-content">
+
+            <!-- ========================= -->
+            <!-- HEADER -->
+            <!-- ========================= -->
+
+            <header class="section-header">
+
+                <div>
+
+                    <h1 class="section-title">
+                        Campaign Results
+                    </h1>
+
+                    <p
+                        class="tagline"
+                        style="
+                            text-align:left;
+                            margin-bottom:0;
+                        "
+                    >
+
+                        Your optimal influencer selections.
+
+                    </p>
+
+                </div>
+
+                <button
+                    class="btn-secondary"
+                    onclick="
+                        window.location.href=
+                        'dashboard.html'
+                    "
+                >
+
+                    Back to Setup
+
+                </button>
+
+            </header>
+
+            <!-- ========================= -->
+            <!-- BUDGET STATS -->
+            <!-- ========================= -->
+
+            <div
+                class="analytics-cards mt-2"
+                id="budget-stats-container"
+            >
+
+                <!-- Affordable -->
+
+                <div
+                    class="glass-card mini-card"
+                    style="
+                        border-left:
+                        4px solid var(--success);
+                    "
+                >
+
+                    <h3>
+                        Affordable Influencers
+                    </h3>
+
+                    <p
+                        class="stat"
+                        id="stat-afford-count"
+                    >
+                        0
+                    </p>
+
+                    <span class="sub-stat">
+
+                        Within your budget
+
+                    </span>
+
+                </div>
+
+                <!-- Total Budget -->
+
+                <div class="glass-card mini-card">
+
+                    <h3>
+                        Total Budget Used
+                    </h3>
+
+                    <p
+                        class="stat"
+                        id="stat-total-cost"
+                        style="
+                            font-size:1.8rem;
+                        "
+                    >
+
+                        ₹0
+
+                    </p>
+
+                </div>
+
+                <!-- Remaining -->
+
+                <div class="glass-card mini-card">
+
+                    <h3>
+                        Remaining Budget
+                    </h3>
+
+                    <p
+                        class="stat"
+                        id="stat-remaining-budget"
+                        style="
+                            font-size:1.8rem;
+                        "
+                    >
+
+                        ₹0
+
+                    </p>
+
+                </div>
+
+                <!-- Utilization -->
+
+                <div class="glass-card mini-card">
+
+                    <h3>
+                        Budget Utilization
+                    </h3>
+
+                    <p
+                        class="stat"
+                        id="stat-budget-utilization"
+                        style="
+                            font-size:1.8rem;
+                        "
+                    >
+
+                        0%
+
+                    </p>
+
+                    <div
+                        style="
+                            width:100%;
+                            height:8px;
+                            background:
+                            rgba(0,0,0,0.1);
+                            border-radius:4px;
+                            margin-top:10px;
+                        "
+                    >
+
+                        <div
+                            id="utilization-bar"
+                            style="
+                                height:100%;
+                                width:0%;
+                                background:
+                                var(--primary);
+                                border-radius:4px;
+                                transition:
+                                width 0.5s;
+                            "
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- TOP INFLUENCERS -->
+            <!-- ========================= -->
+
+            <div class="top-influencers-section mt-2">
+
+                <div
+                    style="
+                        display:flex;
+                        justify-content:
+                        space-between;
+                        align-items:center;
+                        flex-wrap:wrap;
+                        gap:1rem;
+                    "
+                >
+
+                    <h2>
+                        Top 5 Recommended Influencers
+                    </h2>
+
+                    <span
+                        class="badge platform"
+                        style="
+                            padding:
+                            0.6rem 1rem;
+                        "
+                    >
+
+                        🔴 Real-Time YouTube Data
+
+                    </span>
+
+                </div>
+
+                <!-- Spinner -->
+
+                <div
+                    class="spinner hidden"
+                    id="influencers-spinner"
+                ></div>
+
+                <!-- Cards -->
+
+                <div
+                    class="influencer-grid mt-2"
+                    id="top-influencer-list"
+                >
+
+                    <!-- JS FILLS -->
+
+                </div>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- OTHER AFFORDABLE -->
+            <!-- ========================= -->
+
+            <div
+                class="mt-2 hidden"
+                id="remaining-influencers-section"
+            >
+
+                <div
+                    style="
+                        display:flex;
+                        justify-content:
+                        space-between;
+                        align-items:center;
+                        flex-wrap:wrap;
+                        gap:1rem;
+                    "
+                >
+
+                    <h2>
+                        Other Affordable Influencers
+                    </h2>
+
+                    <span
+                        class="badge fair"
+                        style="
+                            padding:
+                            0.5rem 1rem;
+                        "
+                    >
+
+                        💡 Budget Friendly Picks
+
+                    </span>
+
+                </div>
+
+                <div
+                    class="glass-card table-container mt-2"
+                >
+
+                    <table id="remaining-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Name
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Followers
+                                </th>
+
+                                <th>
+                                    Engagement
+                                </th>
+
+                                <th>
+                                    Cost
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <!-- JS FILLS -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- SCRIPT -->
+    <!-- ========================= -->
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Dashboard - InfluencerIQ
+    </title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <h2 class="logo">
+                InfluencerIQ 🎯
+            </h2>
+
+            <nav class="sidebar-nav">
+
+                <a
+                    href="dashboard.html"
+                    class="active"
+                >
+                    📊 Dashboard
+                </a>
+
+                <a href="analytics.html">
+                    📈 Analytics
+                </a>
+
+                <a
+                    href="#"
+                    onclick="logout()"
+                    style="
+                        margin-top:auto;
+                        color:var(--danger);
+                    "
+                >
+                    🚪 Logout
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+
+            <!-- HEADER -->
+
+            <header class="section-header">
+
+                <div>
+
+                    <h1 class="section-title">
+                        Dashboard Overview
+                    </h1>
+
+                    <p
+                        class="tagline"
+                        style="
+                            text-align:left;
+                            margin-bottom:0;
+                        "
+                    >
+                        Find the perfect influencers
+                        for your campaign.
+                    </p>
+
+                </div>
+
+            </header>
+
+            <!-- CAMPAIGN SETUP -->
+
+            <div class="glass-card mb-2">
+
+                <h2>
+                    Campaign Setup
+                </h2>
+
+                <form
+                    id="campaign-form"
+                    style="
+                        flex-direction:row;
+                        flex-wrap:wrap;
+                        align-items:flex-end;
+                    "
+                >
+
+                    <div
+                        class="input-group"
+                        style="
+                            flex:1;
+                            min-width:200px;
+                        "
+                    >
+
+                        <label>
+                            Category
+                        </label>
+
+                        <select
+                            id="campaign-category"
+                            required
+                        >
+
+                            <option value="All">
+                                All Categories
+                            </option>
+
+                            <option value="Fashion">
+                                Fashion
+                            </option>
+
+                            <option value="Tech">
+                                Tech
+                            </option>
+
+                            <option value="Fitness">
+                                Fitness
+                            </option>
+
+                            <option value="Food">
+                                Food
+                            </option>
+
+                            <option value="Travel">
+                                Travel
+                            </option>
+
+                            <option value="Gaming">
+                                Gaming
+                            </option>
+
+                            <option value="Beauty">
+                                Beauty
+                            </option>
+
+                            <option value="Finance">
+                                Finance
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div
+                        class="input-group"
+                        style="
+                            flex:1;
+                            min-width:200px;
+                        "
+                    >
+
+                        <label>
+                            Budget (₹)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="campaign-budget"
+                            placeholder="e.g. 5000"
+                        >
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-primary"
+                        style="
+                            flex:1;
+                            min-width:200px;
+                        "
+                        onclick="fetchInfluencers()"
+                    >
+
+                        Search Influencers
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- STATS -->
+
+            <div class="analytics-cards mt-2">
+
+                <div class="glass-card mini-card">
+
+                    <h3>
+                        Total Influencers
+                    </h3>
+
+                    <p
+                        class="stat"
+                        id="stat-total"
+                    >
+                        0
+                    </p>
+
+                </div>
+
+                <div class="glass-card mini-card">
+
+                    <h3>
+                        Avg. Engagement
+                    </h3>
+
+                    <p
+                        class="stat"
+                        id="stat-engagement"
+                    >
+                        0%
+                    </p>
+
+                </div>
+
+                <div class="glass-card mini-card">
+
+                    <h3>
+                        Top Category
+                    </h3>
+
+                    <p
+                        class="stat"
+                        id="stat-top-category"
+                        style="
+                            font-size:1.8rem;
+                        "
+                    >
+                        All
+                    </p>
+
+                </div>
+
+                <div class="glass-card mini-card">
+
+                    <h3>
+                        Best Value Pick
+                    </h3>
+
+                    <p
+                        class="stat"
+                        id="stat-roi-suggestion"
+                        style="
+                            font-size:1.5rem;
+                        "
+                    >
+                        N/A
+                    </p>
+
+                    <span class="sub-stat">
+                        Highest ROI Potential
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- REAL-TIME YOUTUBE SECTION -->
+
+            <section class="mt-2">
+
+                <div class="glass-card">
+
+                    <div
+                        style="
+                            display:flex;
+                            justify-content:space-between;
+                            align-items:center;
+                            flex-wrap:wrap;
+                            gap:10px;
+                        "
+                    >
+
+                        <div>
+
+                            <h2>
+                                🔴 Real-Time YouTube Influencers
+                            </h2>
+
+                            <p
+                                style="
+                                    color:gray;
+                                    margin-top:5px;
+                                "
+                            >
+                                Live influencer data fetched
+                                using YouTube Data API
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="btn-primary"
+                            onclick="loadYoutubeInfluencers()"
+                        >
+
+                            Refresh Live Data
+
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="youtubeInfluencers"
+                        class="youtube-grid"
+                    >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
